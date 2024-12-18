@@ -1,0 +1,1 @@
+INSERT INTO medecin (id_medecin,  ) VALUES ();
