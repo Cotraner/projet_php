@@ -54,8 +54,8 @@ CREATE TABLE public.Medecin(
 	prenom                      VARCHAR (20) NOT NULL ,
 	email                       VARCHAR (40) NOT NULL ,
 	tel                         CHAR (10)  NOT NULL ,
-	id_medecin_compte_medecin   INT  NOT NULL ,
-	id_medecin_planning         INT  NOT NULL  ,
+	id_medecin_compte_medecin   INT NULL ,
+	id_medecin_planning         INT NULL  ,
 	CONSTRAINT Medecin_PK PRIMARY KEY (id_medecin,id_specialite)
 )WITHOUT OIDS;
 
@@ -91,8 +91,8 @@ CREATE TABLE public.compte_medecin(
 	id_medecin              SERIAL NOT NULL ,
 	pwd                     VARCHAR (20) NOT NULL ,
 	email                   VARCHAR (40) NOT NULL ,
-	id_medecin_possede      INT  NOT NULL ,
-	id_specialite_Medecin   INT  NOT NULL  ,
+	id_medecin_possede      INT NOT NULL ,
+	id_specialite_Medecin   INT NOT NULL  ,
 	CONSTRAINT compte_medecin_PK PRIMARY KEY (id_medecin)
 )WITHOUT OIDS;
 
