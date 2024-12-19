@@ -2,6 +2,18 @@
 --        Script Postgre 
 ------------------------------------------------------------
 
+-- Suppression des tables si elles existent
+DROP TABLE IF EXISTS public.rdv CASCADE;
+DROP TABLE IF EXISTS public.compte_medecin CASCADE;
+DROP TABLE IF EXISTS public.planning CASCADE;
+DROP TABLE IF EXISTS public.specialiser CASCADE;
+DROP TABLE IF EXISTS public.Medecin CASCADE;
+DROP TABLE IF EXISTS public.specialite CASCADE;
+DROP TABLE IF EXISTS public.compte_patient CASCADE;
+DROP TABLE IF EXISTS public.Patient CASCADE;
+
+-- Toutes les tables sont supprimÃ©es.
+
 
 
 ------------------------------------------------------------
@@ -11,12 +23,13 @@ CREATE TABLE public.Patient(
 	id_patient       INT  NOT NULL ,
 	nom              VARCHAR (20) NOT NULL ,
 	prenom           VARCHAR (20) NOT NULL ,
-	email            VARCHAR (20) NOT NULL ,
-	adresse          VARCHAR (20) NOT NULL ,
+	email            VARCHAR (40) NOT NULL ,
+	adresse          VARCHAR (40) NOT NULL ,
 	tel              CHAR (10)  NOT NULL ,
 	date_naissance   DATE  NOT NULL  ,
 	CONSTRAINT Patient_PK PRIMARY KEY (id_patient)
 )WITHOUT OIDS;
+
 
 
 ------------------------------------------------------------
@@ -25,20 +38,9 @@ CREATE TABLE public.Patient(
 CREATE TABLE public.compte_patient(
 	id_patient   SERIAL NOT NULL ,
 	pwd          VARCHAR (20) NOT NULL ,
-	email        VARCHAR (20) NOT NULL  ,
+	email        VARCHAR (40) NOT NULL  ,
 	CONSTRAINT compte_patient_PK PRIMARY KEY (id_patient)
 )WITHOUT OIDS;
-
-
-------------------------------------------------------------
--- Table: specialite
-------------------------------------------------------------
-CREATE TABLE public.specialite(
-	id_specialite   INT  NOT NULL ,
-	specialite      VARCHAR (20) NOT NULL  ,
-	CONSTRAINT specialite_PK PRIMARY KEY (id_specialite)
-)WITHOUT OIDS;
-
 
 ------------------------------------------------------------
 -- Table: Medecin
@@ -50,13 +52,21 @@ CREATE TABLE public.Medecin(
 	code_postal                 INT  NOT NULL ,
 	nom                         VARCHAR (20) NOT NULL ,
 	prenom                      VARCHAR (20) NOT NULL ,
-	email                       VARCHAR (20) NOT NULL ,
+	email                       VARCHAR (40) NOT NULL ,
 	tel                         CHAR (10)  NOT NULL ,
 	id_medecin_compte_medecin   INT  NOT NULL ,
 	id_medecin_planning         INT  NOT NULL  ,
 	CONSTRAINT Medecin_PK PRIMARY KEY (id_medecin,id_specialite)
 )WITHOUT OIDS;
 
+------------------------------------------------------------
+-- Table: specialite
+------------------------------------------------------------
+CREATE TABLE public.specialite(
+	id_specialite   INT  NOT NULL ,
+	specialite      VARCHAR (20) NOT NULL  ,
+	CONSTRAINT specialite_PK PRIMARY KEY (id_specialite)
+)WITHOUT OIDS;
 
 ------------------------------------------------------------
 -- Table: rdv
@@ -75,12 +85,12 @@ CREATE TABLE public.rdv(
 
 
 ------------------------------------------------------------
--- Table: compte médecin
+-- Table: compte mï¿½decin
 ------------------------------------------------------------
 CREATE TABLE public.compte_medecin(
 	id_medecin              SERIAL NOT NULL ,
 	pwd                     VARCHAR (20) NOT NULL ,
-	email                   VARCHAR (20) NOT NULL ,
+	email                   VARCHAR (40) NOT NULL ,
 	id_medecin_possede      INT  NOT NULL ,
 	id_specialite_Medecin   INT  NOT NULL  ,
 	CONSTRAINT compte_medecin_PK PRIMARY KEY (id_medecin)
