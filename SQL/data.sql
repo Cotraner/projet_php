@@ -25,4 +25,4 @@ INSERT INTO public.patient (nom, prenom, email, adresse, tel, date_naissance, pa
 ('Moreau', 'Julie', 'julie.moreau@hotmail.com', '15 Boulevard Nice', '0634567890', '1995-03-30', 'juliepass'),
 ('Girard', 'Thomas', 'thomas.girard@outlook.com', '20 Rue de Lille', '0645678901', '2000-07-10', 'thomaspass');
 
-------------------------------------------------------------<
+------------------------------------------------------------
