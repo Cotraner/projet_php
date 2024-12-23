@@ -15,7 +15,9 @@
 		<p id="titre">DOCTOL'ISEN</p>
 		<a href="global_login.php" <button class="buttonLog">Connection en tant que patient</button></a>
     </nav>
+    
     <form id="form_login" action="request_medic.php" method="POST">
+    <p class="type_conn">Connection Medecin</p>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" name="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="<?php 
@@ -35,10 +37,10 @@
         <label class="form-check-label" for="exampleCheck1">Remember me</label><br>
     </div>
     <div id="register">
-    <a href="register.php" class="form-check-label lien">Register</a><br>
+    <a href="create_medic.php" class="form-check-label lien">Créer un compte</a><br>
     </div>
     
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Connection</button>
     </form>
 </body>
 </html>

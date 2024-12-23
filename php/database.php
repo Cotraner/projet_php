@@ -60,6 +60,33 @@ function GetnamePatient($conn, $id){
     return $result;
 }
 
+function createPatient($conn, $nom, $prenom, $date, $adresse, $tel, $email, $password){
+    $request = $conn->query("INSERT INTO patient (nom, prenom, date_naissance, adresse, tel, email, password) VALUES ('$nom', '$prenom', '$date', '$adresse', '$tel', '$email', '$password');");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+}
+
+function existSpe($conn, $spe){
+    $request = $conn->query("SELECT COUNT(*) FROM specialite WHERE specialite='$spe';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function createMedic($conn, $mail, $password, $nom, $prenom, $code_postal, $tel, $specialite){
+    if(existSpe($conn, $specialite)!=0){
+        $idspe = $conn->query("SELECT id_specialite FROM specialite WHERE specialite='$specialite';");
+        $request = $conn->query("INSERT INTO medecin (email, password, nom, prenom, code_postal, tel, id_specialite) VALUES ('$mail', '$password', '$nom', '$prenom', $code_postal, '$tel', '$idspe');");
+        $result = $request->fetchALL(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    else{
+        $request = $conn->query("INSERT INTO specialite (nom) VALUES ('$specialite');");
+        $idspe = $conn->query("SELECT id_specialite FROM specialite WHERE nom='$specialite';");
+        $request = $conn->query("INSERT INTO medecin (email, password, nom, prenom, code_postal, tel, id_specialite) VALUES ('$mail', '$password', '$nom', '$prenom', '$code_postal', '$tel', '$idspe');");
+        $result = $request->fetchALL(PDO::FETCH_ASSOC);
+        return $result;
+    }
+}
+
 
 
 
