@@ -1,7 +1,12 @@
+@font-face {
+    font-family: 'Jersey 25';
+    src: url(Jersey25-Regular.ttf);
+}
+
 .buttonLog {
     background: #5cbdfd;
-    font-family: Jersey;
     padding: 0.6em 1.3em;
+    font-family: 'Jersey 25', serif;
     font-weight: 900;
     font-size: 18px;
     border: 3px solid black;
