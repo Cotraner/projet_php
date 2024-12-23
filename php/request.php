@@ -12,7 +12,7 @@ function request($conn) {
         $id = $_POST['user'];
         $password = $_POST['pswrd'];
         
-        $idMedecin = GetIdMedecin($conn, $id);
+        $idMedecin = GetIdMedecinWithMail($conn, $id);
         $passwordMedecin = GetPasswordMedecin($conn, $id);
         //verifie si remerber me est coché
         if($_POST['remember'] == true){

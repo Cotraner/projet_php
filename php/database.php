@@ -14,35 +14,54 @@ function dbConnect(){
     return $conn;
 }
 
-function GetIdMedecin($conn,$id){
-    $request = $conn->query("SELECT id FROM medecins WHERE id='$id';");
+function GetEmailMedecin($conn,$email){
+    $request = $conn->query("SELECT email FROM medecin WHERE email='$email';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+function GetIdMedecinWithMail($conn,$email){
+    $request = $conn->query("SELECT id_medecin FROM medecin WHERE email='$email';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }
 
 function GetPasswordMedecin($conn,$id){
-    $request = $conn->query("SELECT mot_de_passe FROM medecins WHERE id='$id';");
+    $request = $conn->query("SELECT password FROM medecin WHERE id_medecin='$id';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }
 
 function GetnameMedecin($conn,$id){
-    $request = $conn->query("SELECT prenom, nom FROM medecins WHERE id='$id';");
+    $request = $conn->query("SELECT prenom, nom FROM medecin WHERE id_medecin='$id';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }
 
-function GetPatientof($conn,$id){
-    $request = $conn->query("SELECT * FROM patients WHERE medecin_id ='$id';");
+function GetEmailPatient($conn,$email){
+    $request = $conn->query("SELECT email FROM patient WHERE email='$email';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+function GetIdPatientWithMail($conn,$email){
+    $request = $conn->query("SELECT id_patient FROM patient WHERE email='$email';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }
 
-function Getglycemieof($conn,$id){
-    $request = $conn->query("SELECT date_mesure,valeur FROM glycemie WHERE patient_id ='$id';");
+function GetPasswordPatient($conn,$id){
+    $request = $conn->query("SELECT password FROM patient WHERE id_patient='$id';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }
+
+function GetnamePatient($conn, $id){
+    $request = $conn->query("SELECT prenom, nom FROM patient WHERE id_patient='$id';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+
+
 
 
 
