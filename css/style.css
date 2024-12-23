@@ -3,6 +3,17 @@
     src: url(Jersey25-Regular.ttf);
 }
 
+#logo{
+    width: 75px;
+    height: 75px;
+}
+
+#titre{
+    font-family: 'Jersey 25', serif;
+    font-size: 50px;
+    color: #000000;
+}
+
 .buttonLog {
     background: #5cbdfd;
     padding: 0.6em 1.3em;
@@ -22,4 +33,16 @@
 .buttonLog:active {
     transform: translate(0.05em, 0.05em);
     box-shadow: 0.05em 0.05em;
+}
+
+.body{
+    background-color: #B1B3BC;
+}
+
+#presentation{
+    font-family: 'Jersey 25', serif;
+    font-size: 19px;
+    color: #000000;
+    padding-left: 100px;
+    padding-top: 100px;
 }

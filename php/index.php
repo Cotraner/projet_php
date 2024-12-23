@@ -9,12 +9,18 @@
 	<link href="../css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
+<body class="body">
     <nav class="navbar navbar-dark bg-primary">
-		
+		<img id="logo" src="../images/logo_doctolisen.png">
+		<p id="titre">DOCTOL'ISEN</p>
 		<button class="buttonLog">Connection</button>
 		
     </nav>
-	<p>j'ecris</p>
+	<div id="presentation">Bienvenue sur DOCTOL’ISEN<br> La plateforme simple et rapide pour prendre vos rendez-vous médicaux en ligne.
+		<ul>
+			<li>Trouvez facilement un médecin près de chez vous.</li>
+			<li>Réservez vos consultations en quelques clics, 24h/24.</li>
+		</ul>
+		Votre santé est notre priorité. Gagnez du temps et simplifiez vos démarches médicales avec DOCTOL’ISEN !</div>
 </body>
 </html>
