@@ -46,3 +46,21 @@
     padding-left: 100px;
     padding-top: 100px;
 }
+
+.lien:visited{
+    text-decoration: none;
+    color: #000000;
+}
+
+.lien:link{
+    text-decoration: none;
+    color: #000000;
+}
+
+#form_login{
+    padding: 200px;
+}
+
+#register{
+    padding-left: 880px;
+}

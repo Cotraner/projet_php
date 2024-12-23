@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="fr">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="description" content="" />
@@ -13,8 +13,7 @@
     <nav class="navbar navbar-dark bg-primary">
 		<img id="logo" src="../images/logo_doctolisen.png">
 		<p id="titre">DOCTOL'ISEN</p>
-		<button class="buttonLog">Connection</button>
-		
+		<a href="global_login.php" <button class="buttonLog">Connection</button></a>
     </nav>
 	<div id="presentation">Bienvenue sur DOCTOL’ISEN<br> La plateforme simple et rapide pour prendre vos rendez-vous médicaux en ligne.
 		<ul>
