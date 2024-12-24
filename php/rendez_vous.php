@@ -3,12 +3,9 @@
     session_start();
     
     // Vérifier si la variable de session est définie
-    if (isset($_SESSION["nomcomp"])) {
-        $nomcomp = $_SESSION["nomcomp"];
-    } else {
-        $nomcomp = "Invité"; // Valeur par défaut si la variable de session n'est pas définie
-    }
-    
+    if (isset($_SESSION["name"])) {
+        $nomcomp = $_SESSION["name"];
+    }    
     include 'database.php';
     $conn = dbConnect();
     
@@ -39,10 +36,10 @@
             echo "Bonjour ". htmlspecialchars($nomcomp);
         ?>
     </div>
-	<form method="POST" action="rendez_vous.php">
+	<form method="POST">
         <div class="row">
             <div class="col">
-                <select type="selected" class="form-control" placeholder="Specialite">
+                <select type="selected" class="form-control" placeholder="Specialite" name="specialite">
                     <?php
                     
                     $allspe = GetAllSpe($conn);
@@ -54,7 +51,7 @@
                 </select>
             </div>
             <div class="col">
-                <select type="selected" class="form-control" placeholder="Docteur">
+                <select type="selected" class="form-control" placeholder="Docteur" name="docteur">
                 <?php
                     
                     $allDoc = GetAllDoc($conn);
@@ -66,7 +63,7 @@
                 </select>
             </div>
             <div class="col">
-                <input type="text" class="form-control" placeholder="Ville">
+                <input type="text" class="form-control" placeholder="Code Postal" name="codePostal">
             </div>
         </div>
     </form>
@@ -74,15 +71,42 @@
         <div class="col">
             <button type="submit" class="btn btn-primary">Rechercher</button>
         </div>
-        <?php
-            if(isset($_POST['selected'])){
-                echo '<div class="table-responsive">
-                        <table class="table">
-                            rdv
-                        </table>
-                        </div>';
+    </div>
+    <?php
+        if(isset($_POST["specialite"]) || isset($_POST["docteur"]) || isset($_POST["codePostal"])){
+            $specialite = $_POST["specialite"];
+            $docteur = $_POST["docteur"];
+            $codePostal = $_POST["codePostal"];
+            $allRdv = GetAllRdv($conn, $specialite, $docteur, $codePostal);
+            echo "<table class='table'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th scope='col'>Nom</th>";
+            echo "<th scope='col'>Prenom</th>";
+            echo "<th scope='col'>Date</th>";
+            echo "<th scope='col'>Heure</th>";
+            echo "<th scope='col'>Specialite</th>";
+            echo "<th scope='col'>Docteur</th>";
+            echo "<th scope='col'>Code Postal</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            foreach ($allRdv as $rdv){
+                echo "<tr>";
+                echo "<td>".$rdv['nom']."</td>";
+                echo "<td>".$rdv['prenom']."</td>";
+                echo "<td>".$rdv['date']."</td>";
+                echo "<td>".$rdv['heure']."</td>";
+                echo "<td>".$rdv['specialite']."</td>";
+                echo "<td>".$rdv['docteur']."</td>";
+                echo "<td>".$rdv['codePostal']."</td>";
+                echo "</tr>";
             }
+            echo "</tbody>";
+            echo "</table>";
+        }
 
-        ?>
+
+    ?>
 </body>
 </html>

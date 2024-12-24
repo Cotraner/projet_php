@@ -17,7 +17,7 @@ function request($conn) {
         //verifie si remerber me est coché
         if($_POST['remember'] == true){
             setcookie('username',$email,time() + 7*24*60*60,"/"); //cookies pour 7jours
-            setcookie('password',"$password",time() + 7*24*60*60,"/");
+            setcookie('password',$password,time() + 7*24*60*60,"/");
         }
         
         // Vérifier si l'utilisateur et le mot de passe existent
@@ -25,7 +25,7 @@ function request($conn) {
             if (!empty($passwordPatient) && $password == GetPasswordPatient($conn, $idPatient)[0]['password']) {
                 $nomPrenom = GetnamePatient($conn, $idPatient);
                 $_SESSION["mail"] = $email;
-                $_SESSION["name"] = "Dr. " . $nomPrenom[0]['nom']. " ". $nomPrenom[0]['prenom'];
+                $_SESSION["name"] = $nomPrenom[0]['prenom'] . " " . $nomPrenom[0]['nom'];
                 header('Location: http://localhost/proj_php/projet_php/php/rendez_vous.php');
                 exit();
             }

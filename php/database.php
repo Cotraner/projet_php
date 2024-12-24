@@ -99,6 +99,11 @@ function GetAllDoc($conn){
     return $result;
 }
 
+function GetAllRdv($conn, $specialite, $docteur, $codePostal){
+    $request = $conn->query("SELECT patient.nom, patient.prenom, rdv.date, rdv.heure, specialite.specialite, medecin.nom, medecin.code_postal FROM rdv, patient, medecin, specialite WHERE rdv.id_patient = patient.id_patient OR rdv.id_medecin = medecin.id_medecin OR medecin.id_specialite = specialite.id_specialite OR specialite.specialite = '$specialite' OR medecin.nom = '$docteur' OR medecin.code_postal = '$codePostal';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
 
 
 
