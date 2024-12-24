@@ -79,7 +79,7 @@ function createMedic($conn, $mail, $password, $nom, $prenom, $code_postal, $tel,
         return $result;
     }
     else{
-        $request = $conn->query("INSERT INTO specialite (nom) VALUES ('$specialite');");
+        $request = $conn->query("INSERT INTO specialite (specialite) VALUES ('$specialite');");
         $idspe = $conn->query("SELECT id_specialite FROM specialite WHERE nom='$specialite';");
         $request = $conn->query("INSERT INTO medecin (email, password, nom, prenom, code_postal, tel, id_specialite) VALUES ('$mail', '$password', '$nom', '$prenom', '$code_postal', '$tel', '$idspe');");
         $result = $request->fetchALL(PDO::FETCH_ASSOC);
@@ -89,6 +89,12 @@ function createMedic($conn, $mail, $password, $nom, $prenom, $code_postal, $tel,
 
 function GetAllSpe($conn){
     $request = $conn->query("SELECT specialite FROM specialite;");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function GetAllDoc($conn){
+    $request = $conn->query("SELECT nom FROM medecin;");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
 }

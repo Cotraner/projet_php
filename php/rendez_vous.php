@@ -1,3 +1,18 @@
+<?php    
+    // Démarrer la session
+    session_start();
+    
+    // Vérifier si la variable de session est définie
+    if (isset($_SESSION["nomcomp"])) {
+        $nomcomp = $_SESSION["nomcomp"];
+    } else {
+        $nomcomp = "Invité"; // Valeur par défaut si la variable de session n'est pas définie
+    }
+    
+    include 'database.php';
+    $conn = dbConnect();
+    
+?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -21,28 +36,33 @@
     </nav>
     <div class="type_conn">
         <?php
-            session_start();
-            echo "Bonjour ". $_SESSION["nomcomp"];
+            echo "Bonjour ". htmlspecialchars($nomcomp);
         ?>
     </div>
-	<form>
+	<form method="POST" action="rendez_vous.php">
         <div class="row">
             <div class="col">
                 <select type="selected" class="form-control" placeholder="Specialite">
-
-                    <option><?php
-                    include "database.php";
+                    <?php
+                    
                     $allspe = GetAllSpe($conn);
                     foreach ($allspe as $spe){
-                         echo "<option value='".$spe."</option>";
-                    }
-                         ?></option>
-                        
+                        echo "<option value='".$spe['specialite']."'>".$spe['specialite'] ."</option>";
+                   }    
+                   
+                    ?>       
                 </select>
             </div>
             <div class="col">
                 <select type="selected" class="form-control" placeholder="Docteur">
-                    <option></option>
+                <?php
+                    
+                    $allDoc = GetAllDoc($conn);
+                    foreach ($allDoc as $doc){
+                        echo "<option value='".$doc['nom']."'>"."Dr.". " ".$doc['nom'] ."</option>";
+                   }    
+                   
+                    ?> 
                 </select>
             </div>
             <div class="col">
@@ -50,5 +70,19 @@
             </div>
         </div>
     </form>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+        <?php
+            if(isset($_POST['selected'])){
+                echo '<div class="table-responsive">
+                        <table class="table">
+                            rdv
+                        </table>
+                        </div>';
+            }
+
+        ?>
 </body>
 </html>
