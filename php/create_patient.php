@@ -16,7 +16,7 @@
 		<a href="create_medic.php" <button class="buttonLog">Créer un compte medecin</button></a>
     </nav>
     
-    <form id="form_login" action="medic_creation.php" method="POST">
+    <form id="form_login" action="patient_creation.php" method="POST">
     <p class="type_conn">Creation patient</p>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>

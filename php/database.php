@@ -87,6 +87,12 @@ function createMedic($conn, $mail, $password, $nom, $prenom, $code_postal, $tel,
     }
 }
 
+function GetAllSpe($conn){
+    $request = $conn->query("SELECT specialite FROM specialite;");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
 
 
 
