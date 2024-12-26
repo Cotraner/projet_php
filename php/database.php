@@ -25,6 +25,13 @@ function GetIdMedecinWithMail($conn,$email){
     return $result;
 }
 
+function GetIdMedecinWithNom($conn,$nom){
+    $request = $conn->query("SELECT id_medecin FROM medecin WHERE nom='$nom';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+
 function GetPasswordMedecin($conn,$id){
     $request = $conn->query("SELECT password FROM medecin WHERE id_medecin='$id';");
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
@@ -99,16 +106,52 @@ function GetAllDoc($conn){
     return $result;
 }
 
-function GetAllRdv($conn, $specialite, $docteur, $codePostal){
-    $request = $conn->query("SELECT patient.nom, patient.prenom, rdv.date, rdv.heure, specialite.specialite, medecin.nom, medecin.code_postal FROM rdv, patient, medecin, specialite WHERE rdv.id_patient = patient.id_patient OR rdv.id_medecin = medecin.id_medecin OR medecin.id_specialite = specialite.id_specialite OR specialite.specialite = '$specialite' OR medecin.nom = '$docteur' OR medecin.code_postal = '$codePostal';");
-    $result = $request->fetchALL(PDO::FETCH_ASSOC);
-    return $result;
+function GetAllRdv($conn, $specialite, $id_docteur, $codePostal) {
+    try {
+        // Base de la requête
+        $sql = "SELECT 
+                    rdv.date_rdv, 
+                    rdv.heure_rdv, 
+                    med.nom AS nom_medecin, 
+                    med.code_postal, 
+                    spec.specialite
+                FROM rdv
+                INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin
+                INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite
+                WHERE 1=1";
+
+        // Paramètres dynamiques
+        $params = [];
+
+        // Vérification et ajout des filtres
+        if (!empty($specialite)) {
+            $sql .= " AND spec.specialite = :specialite";
+            $params['specialite'] = $specialite;
+        }
+
+        if (!empty($id_docteur) && is_numeric($id_docteur)) {
+            $sql .= " AND med.id_medecin = :id_docteur";
+            $params['id_docteur'] = (int)$id_docteur;
+        } elseif (!empty($id_docteur)) {
+            throw new Exception("L'ID du docteur doit être un entier valide.");
+        }
+
+        if (!empty($codePostal)) {
+            $sql .= " AND med.code_postal = :code_postal";
+            $params['code_postal'] = $codePostal; // Traité comme une chaîne
+        }
+
+        // Préparation et exécution
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+
+        // Retourner les résultats
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        // Gestion des erreurs
+        echo "Erreur : " . $e->getMessage();
+        return [];
+    }
 }
-
-
-
-
-
-
 
 ?>

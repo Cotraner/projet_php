@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark bg-primary">
 		<img id="logo" src="../images/logo_doctolisen.png">
 		<p id="titre">DOCTOL'ISEN</p>
-		<a href="global_login.php" <button class="buttonLog">Connection</button></a>
+		<a href="global_login.php" <button class="buttonLog">Connexion</button></a>
     </nav>
 	<div id="presentation">Bienvenue sur DOCTOL’ISEN<br> La plateforme simple et rapide pour prendre vos rendez-vous médicaux en ligne.
 		<ul>

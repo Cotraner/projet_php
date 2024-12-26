@@ -13,11 +13,11 @@
     <nav class="navbar navbar-dark bg-primary">
 		<img id="logo" src="../images/logo_doctolisen.png">
 		<p id="titre">DOCTOL'ISEN</p>
-		<a href="global_login.php" <button class="buttonLog">Connection en tant que patient</button></a>
+		<a href="global_login.php" <button class="buttonLog">Connexion en tant que patient</button></a>
     </nav>
     
     <form id="form_login" action="request_medic.php" method="POST">
-    <p class="type_conn">Connection Medecin</p>
+    <p class="type_conn">Connexion Medecin</p>
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" name="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" value="<?php 
@@ -40,7 +40,7 @@
     <a href="create_medic.php" class="form-check-label lien">Créer un compte</a><br>
     </div>
     
-        <button type="submit" class="btn btn-primary">Connection</button>
+        <button type="submit" class="btn btn-primary">Connexion</button>
     </form>
 </body>
 </html>

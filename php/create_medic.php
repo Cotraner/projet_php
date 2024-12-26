@@ -47,7 +47,7 @@
         <input type="text" name="specialite" class="form-control" id="exampleInputPassword1" placeholder="specialité"/>
     </div>
     <div id="register">
-    <a href="global_login.php" class="form-check-label lien">Connection</a><br>
+    <a href="global_login.php" class="form-check-label lien">Connexion</a><br>
     </div>
     
         <button type="submit" class="btn btn-primary">Créer</button>
