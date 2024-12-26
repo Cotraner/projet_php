@@ -106,9 +106,27 @@ function GetAllDoc($conn){
     return $result;
 }
 
-function GetAllRdv($conn, $specialite, $id_docteur, $codePostal) {
+function GetAllRdvDoc($conn, $id_doc){
+    $request = $conn->query("SELECT rdv.date_rdv, rdv.heure_rdv, med.nom, med.code_postal, spec.specialite FROM rdv INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite WHERE id_medecin = '$id_doc';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function GetAllRdvSpe($conn, $spe){
+    $request = $conn->query("SELECT rdv.date_rdv, rdv.heure_rdv, med.nom, med.code_postal, spec.specialite FROM rdv INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite WHERE spec.specialite = '$spe';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function GetAllRdvCode($conn, $codePostal){
+    $request = $conn->query("SELECT rdv.date_rdv, rdv.heure_rdv, med.nom, med.code_postal, spec.specialite FROM rdv INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite WHERE med.code_postal = '$codePostal';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = null) {
     try {
-        // Base de la requête
+        // Base de la requête SQL
         $sql = "SELECT 
                     rdv.date_rdv, 
                     rdv.heure_rdv, 
@@ -117,41 +135,53 @@ function GetAllRdv($conn, $specialite, $id_docteur, $codePostal) {
                     spec.specialite
                 FROM rdv
                 INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin
-                INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite
-                WHERE 1=1";
+                LEFT JOIN specialite spec ON med.id_specialite = spec.id_specialite";
 
-        // Paramètres dynamiques
+        // Conditions dynamiques
+        $conditions = [];
         $params = [];
 
-        // Vérification et ajout des filtres
-        if (!empty($specialite)) {
-            $sql .= " AND spec.specialite = :specialite";
-            $params['specialite'] = $specialite;
+        // Ajouter une condition pour l'ID du médecin si défini
+        if ($id_docteur !== null) {
+            $conditions[] = "med.id_medecin = :id_docteur";
+            $params[':id_docteur'] = $id_docteur;
         }
 
-        if (!empty($id_docteur) && is_numeric($id_docteur)) {
-            $sql .= " AND med.id_medecin = :id_docteur";
-            $params['id_docteur'] = (int)$id_docteur;
-        } elseif (!empty($id_docteur)) {
-            throw new Exception("L'ID du docteur doit être un entier valide.");
-        }
-
+        // Ajouter une condition pour le code postal si défini
         if (!empty($codePostal)) {
-            $sql .= " AND med.code_postal = :code_postal";
-            $params['code_postal'] = $codePostal; // Traité comme une chaîne
+            $conditions[] = "med.code_postal = :code_postal";
+            $params[':code_postal'] = $codePostal;
         }
 
-        // Préparation et exécution
+        // Ajouter une condition pour la spécialité
+        if ($specialite === null) {
+            $conditions[] = "spec.specialite IS NULL";
+        } elseif (!empty($specialite)) {
+            $conditions[] = "spec.specialite = :specialite";
+            $params[':specialite'] = $specialite;
+        }
+
+        // Si des conditions existent, on les ajoute à la requête
+        if (!empty($conditions)) {
+            $sql .= " WHERE " . implode(" OR ", $conditions); // NOTE: 'OR' pour flexibilité
+        }
+
+        // Préparation et exécution de la requête
         $stmt = $conn->prepare($sql);
         $stmt->execute($params);
 
-        // Retourner les résultats
+        // Retourner les résultats sous forme de tableau associatif
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        // Gestion des erreurs
-        echo "Erreur : " . $e->getMessage();
+    } catch (PDOException $e) {
+        // Gestion des erreurs SQL
+        echo "Erreur SQL : " . $e->getMessage();
         return [];
     }
 }
+
+
+
+
+
 
 ?>

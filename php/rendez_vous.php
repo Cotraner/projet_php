@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col">
                 <select type="selected" class="form-control" placeholder="Specialite" name="specialite">
-                    <option value="null">Specialite</option>
+                    <option value=null>Specialite</option>
                     <?php
                     
                     $allspe = GetAllSpe($conn);
@@ -53,7 +53,7 @@
             </div>
             <div class="col">
                 <select type="selected" class="form-control" placeholder="Docteur" name="docteur">
-                    <option value="null">Docteur</option>
+                    <option value=null>Docteur</option>
                 <?php
                     
                     $allDoc = GetAllDoc($conn);
@@ -82,33 +82,41 @@
             $specialite = $_POST["specialite"];
             $docteur = $_POST["docteur"];
             $codePostal = $_POST["codePostal"];
-            $id_docteur = GetIdMedecinWithNom($conn, $docteur)['id_medecin'];
+            $id_docteur = GetIdMedecinWithNom($conn, $docteur)[0]['id_medecin'];
+            var_dump($id_docteur);
+            var_dump($specialite);
+            var_dump($codePostal);
             $allRdv = GetAllRdv($conn, $specialite, $id_docteur, $codePostal);
-            var_dump($allRdv);
-            echo "<table class='table'>";
-            echo "<thead>";
-            echo "<tr>";
-            echo "<th scope='col'>Date</th>";
-            echo "<th scope='col'>Heure</th>";
-            echo "<th scope='col'>Specialite</th>";
-            echo "<th scope='col'>Docteur</th>";
-            echo "<th scope='col'>Code Postal</th>";
-            echo "<th scope='col'></th>";
-            echo "</tr>";
-            echo "</thead>";
-            echo "<tbody>";
-            foreach ($allRdv as $rdv){
+            if (!empty($allRdv)) {
+                //var_dump($allRdv);
+                echo "<table class='table'>";
+                echo "<thead>";
                 echo "<tr>";
-                echo "<td>".$rdv['date_rdv']."</td>";
-                echo "<td>".$rdv['heure_rdv']."</td>";
-                echo "<td>".$rdv['specialite']."</td>";
-                echo "<td>".$rdv['nom_medecin']."</td>";
-                echo "<td>".$rdv['code_postal']."</td>";
-                echo '<td><button type="submit" class="btn btn-primary">prendre rendez-vous</button></td>';
+                echo "<th scope='col'>Date</th>";
+                echo "<th scope='col'>Heure</th>";
+                echo "<th scope='col'>Specialite</th>";
+                echo "<th scope='col'>Docteur</th>";
+                echo "<th scope='col'>Code Postal</th>";
+                echo "<th scope='col'></th>";
                 echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                foreach ($allRdv as $rdv){
+                    echo "<tr>";
+                    echo "<td>".$rdv['date_rdv']."</td>";
+                    echo "<td>".$rdv['heure_rdv']."</td>";
+                    echo "<td>".$rdv['specialite']."</td>";
+                    echo "<td>".$rdv['nom_medecin']."</td>";
+                    echo "<td>".$rdv['code_postal']."</td>";
+                    echo '<td><button type="submit" class="btn btn-primary">prendre rendez-vous</button></td>';
+                    echo "</tr>";
+                }
+                echo "</tbody>";
+                echo "</table>";
             }
-            echo "</tbody>";
-            echo "</table>";
+            else{
+                echo "Aucun rendez-vous disponible";
+            }
         }
 
 
