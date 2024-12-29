@@ -24,6 +24,7 @@ function request($conn) {
         if (!empty($email) && $email == GetEmailPatient($conn,$email)[0]['email']) {
             if (!empty($passwordPatient) && $password == GetPasswordPatient($conn, $idPatient)[0]['password']) {
                 $nomPrenom = GetnamePatient($conn, $idPatient);
+                $_SESSION["id_patient"] = $idPatient;
                 $_SESSION["mail"] = $email;
                 $_SESSION["name"] = $nomPrenom[0]['prenom'] . " " . $nomPrenom[0]['nom'];
                 header('Location: http://localhost/proj_php/projet_php/php/rendez_vous.php');

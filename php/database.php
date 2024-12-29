@@ -127,7 +127,8 @@ function GetAllRdvCode($conn, $codePostal){
 function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = null) {
     try {
         // Base de la requête SQL
-        $sql = "SELECT 
+        $sql = "SELECT
+                    rdv.id_rdv, 
                     rdv.date_rdv, 
                     rdv.heure_rdv, 
                     med.nom AS nom_medecin, 
@@ -138,7 +139,7 @@ function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = 
                 LEFT JOIN specialite spec ON med.id_specialite = spec.id_specialite";
 
         // Conditions dynamiques
-        $conditions = [];
+        $conditions = ["rdv.id_patient IS NULL"]; // Ajouter une condition pour id_patient NULL par défaut
         $params = [];
 
         // Ajouter une condition pour l'ID du médecin si défini
@@ -163,7 +164,7 @@ function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = 
 
         // Si des conditions existent, on les ajoute à la requête
         if (!empty($conditions)) {
-            $sql .= " WHERE " . implode(" OR ", $conditions); // NOTE: 'OR' pour flexibilité
+            $sql .= " WHERE " . implode(" AND ", $conditions); // Utilisation de 'AND' pour filtrer plus précisément
         }
 
         // Préparation et exécution de la requête
@@ -178,6 +179,14 @@ function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = 
         return [];
     }
 }
+
+
+function updateRdv($conn, $id_patient, $id_rdv) {
+    $conn->execute("UPDATE rdv SET id_patient ='$id_patient' WHERE id_rdv = '$id_rdv';");
+}
+
+
+
 
 
 

@@ -80,7 +80,7 @@ CREATE TABLE public.rdv(
 	date_rdv     DATE  NOT NULL ,
 	heure_rdv    TIMETZ  NOT NULL ,
 	id_medecin   INT  NOT NULL ,
-	id_patient   INT  NOT NULL  ,
+	id_patient   INT  ,
 	CONSTRAINT rdv_PK PRIMARY KEY (id_rdv)
 
 	,CONSTRAINT rdv_medecin_FK FOREIGN KEY (id_medecin) REFERENCES public.medecin(id_medecin)

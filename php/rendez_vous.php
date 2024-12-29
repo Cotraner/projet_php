@@ -108,7 +108,7 @@
                     echo "<td>".$rdv['specialite']."</td>";
                     echo "<td>".$rdv['nom_medecin']."</td>";
                     echo "<td>".$rdv['code_postal']."</td>";
-                    echo '<td><button type="submit" class="btn btn-primary">prendre rendez-vous</button></td>';
+                    echo '<td><form method="POST" action="addRdv.php"><button type="submit" name="but" value="'.$rdv['id_rdv'].'" class="btn btn-primary">prendre rendez-vous</button></form></td>';
                     echo "</tr>";
                 }
                 echo "</tbody>";
