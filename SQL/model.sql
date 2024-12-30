@@ -27,7 +27,7 @@ CREATE TABLE public.specialite(
 ------------------------------------------------------------
 CREATE TABLE public.medecin(
 	id_medecin      SERIAL NOT NULL ,
-	code_postal     INT  NOT NULL ,
+	code_postal     VARCHAR(10) NOT NULL ,
 	nom             VARCHAR (20) NOT NULL ,
 	prenom          VARCHAR (20) NOT NULL ,
 	email           VARCHAR (50) NOT NULL ,

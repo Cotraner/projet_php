@@ -125,60 +125,48 @@ function GetAllRdvCode($conn, $codePostal){
 }
 
 function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = null) {
-    try {
-        // Base de la requête SQL
-        $sql = "SELECT
-                    rdv.id_rdv, 
-                    rdv.date_rdv, 
-                    rdv.heure_rdv, 
-                    med.nom AS nom_medecin, 
-                    med.code_postal, 
-                    spec.specialite
-                FROM rdv
-                INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin
-                LEFT JOIN specialite spec ON med.id_specialite = spec.id_specialite";
+    // Base de la requête SQL
+    $sql = "SELECT
+                rdv.id_rdv, 
+                rdv.date_rdv, 
+                rdv.heure_rdv, 
+                med.nom AS nom_medecin, 
+                med.code_postal, 
+                spec.specialite
+            FROM rdv
+            INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin
+            LEFT JOIN specialite spec ON med.id_specialite = spec.id_specialite
+            WHERE ";
 
-        // Conditions dynamiques
-        $conditions = ["rdv.id_patient IS NULL"]; // Ajouter une condition pour id_patient NULL par défaut
-        $params = [];
-
-        // Ajouter une condition pour l'ID du médecin si défini
-        if ($id_docteur !== null) {
-            $conditions[] = "med.id_medecin = :id_docteur";
-            $params[':id_docteur'] = $id_docteur;
-        }
-
-        // Ajouter une condition pour le code postal si défini
-        if (!empty($codePostal)) {
-            $conditions[] = "med.code_postal = :code_postal";
-            $params[':code_postal'] = $codePostal;
-        }
-
-        // Ajouter une condition pour la spécialité
-        if ($specialite === null) {
-            $conditions[] = "spec.specialite IS NULL";
-        } elseif (!empty($specialite)) {
-            $conditions[] = "spec.specialite = :specialite";
-            $params[':specialite'] = $specialite;
-        }
-
-        // Si des conditions existent, on les ajoute à la requête
-        if (!empty($conditions)) {
-            $sql .= " WHERE " . implode(" AND ", $conditions); // Utilisation de 'AND' pour filtrer plus précisément
-        }
-
-        // Préparation et exécution de la requête
-        $stmt = $conn->prepare($sql);
-        $stmt->execute($params);
-
-        // Retourner les résultats sous forme de tableau associatif
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        // Gestion des erreurs SQL
-        echo "Erreur SQL : " . $e->getMessage();
-        return [];
+    // Ajouter une condition pour l'ID du médecin si défini
+    if ($id_docteur != null) {
+        $sql .= "med.id_medecin = '$id_docteur'";
     }
+
+    // Ajouter une condition pour le code postal si défini
+    if (!empty($codePostal)) { // Vérifie si $codePostal n'est pas vide ou null
+        if ($id_docteur != null) {
+            $sql .= " AND med.code_postal = '$codePostal'";
+        } else {
+            $sql .= "med.code_postal = '$codePostal'";
+        }
+    }
+
+    // Ajouter une condition pour la spécialité
+    if ($specialite != 'null') {
+        if ($id_docteur != null || !empty($codePostal)) {
+            $sql .= " AND spec.specialite = '$specialite'";
+        } else {
+            $sql .= "spec.specialite = '$specialite'";
+        }
+    }
+
+    $sql .= ";"; // Fin de la requête
+    $request = $conn->query($sql);
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
 }
+
 
 
 function updateRdv($conn, $id_patient, $id_rdv) {

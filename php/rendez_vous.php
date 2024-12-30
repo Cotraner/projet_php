@@ -11,7 +11,7 @@
     if(isset($_POST["reprendre"])){
         $docteur = $_POST["reprendre"];
         $id_docteur = GetIdMedecinWithNom($conn, $docteur)['id_medecin'];
-        $reprendrerdv = GetAllRdv($conn, null, $id_docteur, null);
+        $reprendrerdv = GetAllRdv($conn, 'null', $id_docteur, '');
         if (!empty($reprendrerdv)) {
             var_dump($reprendrerdv);
             echo "<table class='table'>";
@@ -115,12 +115,8 @@
             $docteur = $_POST["docteur"];
             $codePostal = $_POST["codePostal"];
             $id_docteur = GetIdMedecinWithNom($conn, $docteur)[0]['id_medecin'];
-            var_dump($id_docteur);
-            var_dump($specialite);
-            var_dump($codePostal);
             $allRdv = GetAllRdv($conn, $specialite, $id_docteur, $codePostal);
-            if (!empty($allRdv)) {
-                //var_dump($allRdv);
+            if ($allRdv != []) {
                 echo "<table class='table'>";
                 echo "<thead>";
                 echo "<tr>";
