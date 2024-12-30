@@ -186,7 +186,17 @@ function updateRdv($conn, $id_patient, $id_rdv) {
 }
 
 
+function getRdvOfPatient($conn,$id_patient){
+    $request = $conn->query("SELECT rdv.date_rdv, rdv.heure_rdv, med.nom, med.code_postal, spec.specialite FROM rdv INNER JOIN medecin med ON rdv.id_medecin = med.id_medecin INNER JOIN specialite spec ON med.id_specialite = spec.id_specialite WHERE id_patient = '$id_patient';");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
 
+function GetCodePostal($conn,$id_medecin){
+    $request = $conn->query("SELECT code_postal FROM medecin WHERE id_medecin = $id_medecin;");
+    $result = $request->fetchALL(PDO::FETCH_ASSOC);
+    return $result;
+}
 
 
 

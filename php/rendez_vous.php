@@ -8,6 +8,38 @@
     }    
     include 'database.php';
     $conn = dbConnect();
+    if(isset($_POST["reprendre"])){
+        $docteur = $_POST["reprendre"];
+        $id_docteur = GetIdMedecinWithNom($conn, $docteur)['id_medecin'];
+        $reprendrerdv = GetAllRdv($conn, null, $id_docteur, null);
+        if (!empty($reprendrerdv)) {
+            var_dump($reprendrerdv);
+            echo "<table class='table'>";
+            echo "<thead>";
+            echo "<tr>";
+            echo "<th scope='col'>Date</th>";
+            echo "<th scope='col'>Heure</th>";
+            echo "<th scope='col'>Specialite</th>";
+            echo "<th scope='col'>Docteur</th>";
+            echo "<th scope='col'>Code Postal</th>";
+            echo "<th scope='col'></th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            foreach ($reprendrerdv as $rdv){
+                echo "<tr>";
+                echo "<td>".$rdv['date_rdv']."</td>";
+                echo "<td>".$rdv['heure_rdv']."</td>";
+                echo "<td>".$rdv['specialite']."</td>";
+                echo "<td>".$rdv['nom_medecin']."</td>";
+                echo "<td>".$rdv['code_postal']."</td>";
+                echo '<td><form method="POST" action="addRdv.php"><button type="submit" name="but" value="'.$rdv['id_rdv'].'" class="btn btn-primary">prendre rendez-vous</button></form></td>';
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        }
+    }
     
 ?>
 <!DOCTYPE html>
