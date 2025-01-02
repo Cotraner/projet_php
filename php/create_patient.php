@@ -23,6 +23,10 @@
         <input type="email" name="mail" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
     </div>
     <div class="form-group">
+        <label for="exampleInputEmail1">Confirm Email</label>
+        <input type="email" name="mail1" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Confirm email"/>
+    </div>
+    <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input type="password" name="pswrd" class="form-control" id="exampleInputPassword1" placeholder="Password"/>
     </div>

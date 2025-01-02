@@ -160,8 +160,11 @@ function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = 
             $sql .= "spec.specialite = '$specialite'";
         }
     }
+    if($specialite != 'null' || $id_docteur != null || !empty($codePostal)){
+        $sql .= " AND rdv.id_patient IS NULL";
+    }
 
-    $sql .= ";"; // Fin de la requête
+    $sql .= " ORDER BY rdv.date_rdv, rdv.heure_rdv;"; // Fin de la requête
     $request = $conn->query($sql);
     $result = $request->fetchALL(PDO::FETCH_ASSOC);
     return $result;
@@ -170,7 +173,7 @@ function GetAllRdv($conn, $specialite = null, $id_docteur = null, $codePostal = 
 
 
 function updateRdv($conn, $id_patient, $id_rdv) {
-    $conn->execute("UPDATE rdv SET id_patient ='$id_patient' WHERE id_rdv = '$id_rdv';");
+    $conn->exec("UPDATE rdv SET id_patient = $id_patient WHERE id_rdv = $id_rdv;");
 }
 
 
