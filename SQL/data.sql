@@ -5,24 +5,125 @@ INSERT INTO public.specialite (id_specialite, specialite) VALUES
 (1, 'Cardiologie'),
 (2, 'Dermatologie'),
 (3, 'Pédiatrie'),
-(4, 'Ophtalmologie');
+(4, 'Ophtalmologie'),
+(5, 'Neurologie'),
+(6, 'Chirurgie Générale'),
+(7, 'Gynécologie'),
+(8, 'Psychiatrie'),
+(9, 'Oncologie'),
+(10, 'Orthopédie'),
+(11, 'Médecine Générale'),
+(12, 'ORL'),
+(13, 'Radiologie'),
+(14, 'Endocrinologie'),
+(15, 'Urologie'),
+(16, 'Rhumatologie'),
+(17, 'Gastro-entérologie'),
+(18, 'Hématologie'),
+(19, 'Néphrologie'),
+(20, 'Pneumologie');
 
 ------------------------------------------------------------
--- Insertions into the medecin table
+-- Insertions into the medecin table (diversified)
 ------------------------------------------------------------
 INSERT INTO public.medecin (code_postal, nom, prenom, email, tel, password, id_specialite) VALUES
 (75001, 'Dupont', 'Jean', 'jean.dupont@gmail.com', '0601020304', 'password123', 1),
 (69002, 'Martin', 'Claire', 'claire.martin@yahoo.fr', '0602030405', 'password456', 2),
 (34000, 'Bernard', 'Paul', 'paul.bernard@hotmail.com', '0603040506', 'password789', 3),
-(13001, 'Durand', 'Sophie', 'sophie.durand@outlook.com', '0604050607', 'password321', 4);
+(13001, 'Durand', 'Sophie', 'sophie.durand@outlook.com', '0604050607', 'password321', 4),
+(75015, 'Lemoine', 'Marie', 'marie.lemoine@gmail.com', '0654321098', 'password654', 5),
+(31000, 'Fabre', 'Antoine', 'antoine.fabre@yahoo.fr', '0643210987', 'password987', 2),
+(33000, 'Rousseau', 'Juliette', 'juliette.rousseau@gmail.com', '0632109876', 'password432', 3),
+(67000, 'Garnier', 'Luc', 'luc.garnier@hotmail.com', '0621098765', 'password876', 4),
+(59000, 'Chevalier', 'Elodie', 'elodie.chevalier@gmail.com', '0610987654', 'password543', 1),
+(76000, 'Lemoine', 'Hugo', 'hugo.lemoine@yahoo.fr', '0609876543', 'password987', 2),
+(44000, 'Dufour', 'Camille', 'camille.dufour@hotmail.com', '0654321765', 'password176', 3),
+(45000, 'Blanc', 'Lucas', 'lucas.blanc@outlook.com', '0643217654', 'password431', 4),
+(92000, 'Perrin', 'Anna', 'anna.perrin@gmail.com', '0632107654', 'password310', 1),
+(69003, 'Morel', 'Thomas', 'thomas.morel@gmail.com', '0621096543', 'password654', 2),
+(75016, 'Gauthier', 'Sarah', 'sarah.gauthier@hotmail.com', '0610985432', 'password210', 3);
+
 
 ------------------------------------------------------------
--- Insertions into the patient table
+-- Insertions into the patient table (diversified)
 ------------------------------------------------------------
 INSERT INTO public.patient (nom, prenom, email, adresse, tel, date_naissance, password) VALUES
 ('Leclerc', 'Alice', 'alice.leclerc@gmail.com', '10 Rue de Paris', '0612345678', '1990-05-15', 'alicepass'),
 ('Petit', 'Louis', 'louis.petit@yahoo.fr', '25 Avenue de Lyon', '0623456789', '1985-10-20', 'louispass'),
 ('Moreau', 'Julie', 'julie.moreau@hotmail.com', '15 Boulevard Nice', '0634567890', '1995-03-30', 'juliepass'),
-('Girard', 'Thomas', 'thomas.girard@outlook.com', '20 Rue de Lille', '0645678901', '2000-07-10', 'thomaspass');
+('Girard', 'Thomas', 'thomas.girard@outlook.com', '20 Rue de Lille', '0645678901', '2000-07-10', 'thomaspass'),
+('Lambert', 'Emma', 'emma.lambert@gmail.com', '50 Rue de Bordeaux', '0656789012', '1992-11-25', 'emmapass'),
+('Rousseau', 'Hugo', 'hugo.rousseau@hotmail.com', '75 Avenue de Toulouse', '0667890123', '1987-02-14', 'hugopass'),
+('Noel', 'Clara', 'clara.noel@yahoo.fr', '12 Place de Nantes', '0678901234', '1998-06-18', 'clarapass'),
+('Bertrand', 'Lucas', 'lucas.bertrand@gmail.com', '33 Rue de Montpellier', '0689012345', '1989-09-05', 'lucaspass'),
+('Martinez', 'Sophie', 'sophie.martinez@hotmail.com', '48 Avenue de Strasbourg', '0690123456', '1993-04-22', 'sophiepass'),
+('Dupuis', 'Nathan', 'nathan.dupuis@outlook.com', '27 Boulevard de Lille', '0601234567', '1991-12-13', 'nathanpass'),
+('Renard', 'Camille', 'camille.renard@gmail.com', '10 Rue de Marseille', '0613456789', '1983-07-07', 'camillepass'),
+('Guerin', 'Julien', 'julien.guerin@yahoo.fr', '90 Avenue de Grenoble', '0625678901', '1996-03-18', 'julienpass'),
+('Masson', 'Sarah', 'sarah.masson@gmail.com', '40 Boulevard de Rennes', '0637890123', '1994-01-11', 'sarahpass'),
+('Marchal', 'Elodie', 'elodie.marchal@hotmail.com', '15 Rue de Clermont', '0649012345', '1997-08-09', 'elodiepass'),
+('Aubry', 'Antoine', 'antoine.aubry@gmail.com', '60 Avenue de Metz', '0650123456', '1982-10-29', 'antoinepass');
 
-------------------------------------------------------------
+INSERT INTO rdv (date_rdv, heure_rdv, id_medecin)
+VALUES 
+('2025-04-20', '10:00', 1),
+('2025-04-21', '11:00', 2),
+('2025-04-22', '12:00', 3),
+('2025-04-23', '13:00', 4),
+('2025-04-24', '14:00', 5),
+('2025-04-25', '15:00', 6),
+('2025-04-26', '16:00', 7),
+('2025-04-27', '17:00', 8),
+('2025-04-28', '18:00', 9),
+('2025-04-29', '19:00', 10),
+('2025-04-30', '10:00', 11),
+('2025-05-01', '11:00', 12),
+('2025-05-02', '12:00', 13),
+('2025-05-03', '13:00', 14),
+('2025-05-04', '14:00', 15),
+('2025-05-05', '15:00', 1),
+('2025-05-06', '16:00', 2),
+('2025-05-07', '17:00', 3),
+('2025-05-08', '18:00', 4),
+('2025-05-09', '19:00', 5),
+('2025-05-10', '10:00', 6),
+('2025-05-11', '11:00', 7),
+('2025-05-12', '12:00', 8),
+('2025-05-13', '13:00', 9),
+('2025-05-14', '14:00', 10),
+('2025-05-15', '15:00', 11),
+('2025-05-16', '16:00', 12),
+('2025-05-17', '17:00', 13),
+('2025-05-18', '18:00', 14),
+('2025-05-19', '19:00', 15),
+('2025-05-20', '10:00', 1),
+('2025-05-21', '11:00', 2),
+('2025-05-22', '12:00', 3),
+('2025-05-23', '13:00', 4),
+('2025-05-24', '14:00', 5),
+('2025-05-25', '15:00', 6),
+('2025-05-26', '16:00', 7),
+('2025-05-27', '17:00', 8),
+('2025-05-28', '18:00', 9),
+('2025-05-29', '19:00', 10),
+('2025-05-30', '10:00', 11),
+('2025-05-31', '11:00', 12),
+('2025-06-01', '12:00', 13),
+('2025-06-02', '13:00', 14),
+('2025-06-03', '14:00', 15),
+('2025-06-04', '15:00', 1),
+('2025-06-05', '16:00', 2),
+('2025-06-06', '17:00', 3),
+('2025-06-07', '18:00', 4),
+('2025-06-08', '19:00', 5),
+('2025-06-09', '10:00', 6),
+('2025-06-10', '11:00', 7),
+('2025-06-11', '12:00', 8),
+('2025-06-12', '13:00', 9),
+('2025-06-13', '14:00', 10),
+('2025-06-14', '15:00', 11),
+('2025-06-15', '16:00', 12),
+('2025-06-16', '17:00', 13),
+('2025-06-17', '18:00', 14),
+('2025-06-18', '19:00', 15);
+

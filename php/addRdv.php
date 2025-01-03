@@ -25,8 +25,7 @@ session_start();
     $conn = dbConnect();
     $id_patient = $_SESSION['id_patient'];
     updateRdv($conn,$id_patient,intval($_POST['but']));
-    
-    header("Refresh: 5; Location: rendez_vous.php");
+    header("Refresh: 5; URL=rendez_vous.php");
 
 
 ?>
